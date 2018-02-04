@@ -42,4 +42,4 @@ def parseJSON(rawdata):
 def getMatchesEPL():
 	return parseJSON(getJSONRDawData())
 
-#print(getMatchesEPL())
+print(getMatchesEPL())
