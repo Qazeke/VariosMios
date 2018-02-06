@@ -1,19 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # encoding: utf-8
 
-import httplib
 import json
 import requests
 import time
 
-ligas = {'LaLiga': 455, 'Premier': 445}
-#print('Ligas disponibles : Premier, LaLiga')
-#league = raw_input ("Selecciona una liga : ")
-
+ligas = {"LaLiga": 455, "Premier": 445}
+print('Ligas disponibles : Premier, LaLiga')
+league = input ("Selecciona una liga : ")
 
 
 def getJSONRDawData():
-	headers = { 'X-Auth-Token': '6e5f9808ecd24c57b0491e81cdf7e02b', 'X-Response-Control': 'minified' }
+	headers = { 'X-Auth-Token': 'xxxxxxx', 'X-Response-Control': 'minified' }
 	r = requests.get(url,headers=headers)
 	return r.json()	
 
@@ -54,10 +52,12 @@ def getJourney(rawdata):
 			perd = rawdata['fixtures'][i]['matchday']
 			return perd		
 
-for liga in ligas:
-	url= 'http://api.football-data.org/v1/competitions/{}/fixtures'.format(ligas[liga])
-	print(url)
-	getMatchesEPL()
+for i in ligas:
+	if(league == i):
+		url= 'http://api.football-data.org/v1/competitions/{}/fixtures'.format(ligas[i])
+		#print(url)
+		getMatchesEPL()
+
 
 #getTime()
 #getJourney(getJSONRDawData())
