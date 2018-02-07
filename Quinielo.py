@@ -5,19 +5,21 @@ import json
 import requests
 import time
 
-ligas = {"LaLiga": 455, "Premier": 445}
-print('Ligas disponibles : Premier, LaLiga')
+ligas = {"LaLiga": 455, "Premier": 445, "Ligue1": 450, "Bundesliga": 452}
+print('Ligas disponibles : Premier, LaLiga, Ligue1, Bundesliga')
 league = input ("Selecciona una liga : ")
+print('\n')
 
 
 def getJSONRDawData():
-	headers = { 'X-Auth-Token': 'xxxxxxx', 'X-Response-Control': 'minified' }
+	headers = { 'X-Auth-Token': 'xxxxxxxxxxxxx', 'X-Response-Control': 'minified' }
 	r = requests.get(url,headers=headers)
 	return r.json()	
 
 def parseJSON(rawdata):
 	jornada_actual = getJourney(getJSONRDawData())
-	for i in range (0,380):
+	print(getTotalMatches(rawdata))
+	for i in range (0,getTotalMatches(rawdata)):
 		jornada = rawdata['fixtures'][i]['matchday']
 		status = rawdata['fixtures'][i]['status']
 		if ((jornada == jornada_actual)and(status == "FINISHED")):
@@ -51,6 +53,10 @@ def getJourney(rawdata):
 		if(date > getTime()):
 			perd = rawdata['fixtures'][i]['matchday']
 			return perd		
+
+def getTotalMatches(rawdata):
+	total = rawdata['count']
+	return total
 
 for i in ligas:
 	if(league == i):
